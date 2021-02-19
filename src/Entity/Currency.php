@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\CurrencyRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
+use Ramsey\Uuid\Doctrine\UuidGenerator;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CurrencyRepository::class)
@@ -13,9 +16,11 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator;
 class Currency
 {
     /**
+     * @var UuidInterface
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class=UuidV4Generator::class)
+     * @ORM\CustomIdGenerator(class=UuidGenerator::class)
      * @ORM\Column(type="uuid", unique=true)
      */
     private $id;
@@ -86,24 +91,24 @@ class Currency
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -115,8 +120,8 @@ class Currency
      */
     public function prePersist()
     {
-        $this->setCreatedAt(new \DateTime());
-        $this->setUpdatedAt(new \DateTime());
+        $this->setCreatedAt(new DateTime());
+        $this->setUpdatedAt(new DateTime());
     }
 
     /**
@@ -124,7 +129,7 @@ class Currency
      */
     public function preUpdate()
     {
-        $this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new DateTime());
     }
 
 }
