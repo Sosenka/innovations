@@ -8,6 +8,7 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CurrencyRepository::class)
@@ -26,17 +27,40 @@ class Currency
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=100)
+     *
+     * @Assert\Length(
+     *      max = 100,
+     *      maxMessage = "Maksymalna długość nazwy waluty to {{ limit }} znaków."
+     * )
+     *  @Assert\NotBlank(
+     *      message = "Pole nazwa nie może być puste."
+     * )
      */
     private $name;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=10)
+     *
+     *  @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "Maksymalna długość kodu waluty to {{ limit }} znaków."
+     * )
+     *  @Assert\NotBlank(
+     *      message = "Pole kod nie może być puste."
+     * )
      */
     private $currencyCode;
 
     /**
+     * @var float
      * @ORM\Column(type="float")
+     *
+     *  @Assert\NotBlank(
+     *      message = "Pole kurs wymiany nie może być puste."
+     * )
      */
     private $exchangeRate;
 
