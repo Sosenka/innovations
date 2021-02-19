@@ -40,6 +40,9 @@ class ApiController extends AbstractController
             $response = $this->forward('App\Controller\CurrencyController::saveCurrency', [
                 'content' => $content[0]['rates']
             ]);
+        }else
+        {
+            return new JsonResponse(['status' => 'error', 'content' => 'failed to connect to api'], 404);
         }
         return new JsonResponse(['status' => 'success'], 200);
     }
