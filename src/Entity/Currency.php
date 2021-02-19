@@ -42,10 +42,10 @@ class Currency
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=3)
      *
      *  @Assert\Length(
-     *      max = 10,
+     *      max = 3,
      *      maxMessage = "Maksymalna długość kodu waluty to {{ limit }} znaków."
      * )
      *  @Assert\NotBlank(
